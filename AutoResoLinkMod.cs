@@ -48,7 +48,7 @@ public class AutoResoLinkMod : ResoniteMod {
 		config?.Save(true);
 		// The Resonite Mod Manifest requires the Harmony ID to equal the mod's
 		// manifest ID.
-		new Harmony("Xekri.AutoResoLink").PatchAll();
+		new Harmony("XekriRedmane.AutoResoLink").PatchAll();
 		Engine.Current.RunPostInit(SessionFile.Start);
 	}
 }
