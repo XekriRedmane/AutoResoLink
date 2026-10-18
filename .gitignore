@@ -1,0 +1,9 @@
+[Bb]in/
+[Oo]bj/
+.vs/
+.idea/
+*.user
+*.suo
+
+# Local build overrides (see Config.Build.user.props.template)
+Config.Build.user.props

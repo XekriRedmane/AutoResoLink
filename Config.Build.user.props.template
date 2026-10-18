@@ -1,0 +1,12 @@
+<Project>
+
+  <!-- Copy this file to Config.Build.user.props and uncomment what you need. -->
+  <PropertyGroup>
+    <!-- The Resonite install directory, with a trailing slash. Required if Resonite is not in the default Steam library. -->
+    <!-- <ResonitePath>C:\Program Files (x86)\Steam\steamapps\common\Resonite\</ResonitePath> -->
+
+    <!-- Set to true to copy the built mod into rml_mods on every build. -->
+    <!-- <CopyToMods>true</CopyToMods> -->
+  </PropertyGroup>
+
+</Project>

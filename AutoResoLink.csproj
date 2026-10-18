@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Local overrides such as ResonitePath. See Config.Build.user.props.template. -->
+  <Import Project="Config.Build.user.props" Condition="Exists('Config.Build.user.props')" />
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>AutoResoLink</RootNamespace>
+    <AssemblyName>AutoResoLink</AssemblyName>
+    <Version>1.0.0</Version>
+    <Authors>Robert Baruch</Authors>
+    <Description>Adds ResoniteLink controls to Resonite's New World dialog.</Description>
+    <Deterministic>true</Deterministic>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(ResonitePath)' == ''">
+    <ResonitePath Condition="Exists('$(MSBuildProgramFiles32)\Steam\steamapps\common\Resonite\')">$(MSBuildProgramFiles32)\Steam\steamapps\common\Resonite\</ResonitePath>
+    <ResonitePath Condition="Exists('$(HOME)/.steam/steam/steamapps/common/Resonite/')">$(HOME)/.steam/steam/steamapps/common/Resonite/</ResonitePath>
+  </PropertyGroup>
+
+  <!-- Every reference is supplied by the game or by RML at runtime, so none is copied to the output. -->
+  <ItemDefinitionGroup>
+    <Reference Private="false" />
+  </ItemDefinitionGroup>
+
+  <ItemGroup>
+    <Reference Include="FrooxEngine" HintPath="$(ResonitePath)FrooxEngine.dll" />
+    <Reference Include="Elements.Core" HintPath="$(ResonitePath)Elements.Core.dll" />
+    <Reference Include="ResoniteModLoader" HintPath="$(ResonitePath)Libraries\ResoniteModLoader.dll" />
+    <Reference Include="0Harmony" HintPath="$(ResonitePath)rml_libs\0Harmony.dll" />
+  </ItemGroup>
+
+  <Target Name="CheckResonitePath" BeforeTargets="ResolveAssemblyReferences">
+    <Error Condition="!Exists('$(ResonitePath)FrooxEngine.dll')"
+           Text="Resonite was not found at '$(ResonitePath)'. Set ResonitePath in Config.Build.user.props (see Config.Build.user.props.template)." />
+  </Target>
+
+  <!-- With CopyToMods set to true, each build copies the mod into rml_mods. -->
+  <Target Name="CopyToMods" AfterTargets="PostBuildEvent" Condition="'$(CopyToMods)' == 'true'">
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ResonitePath)rml_mods" />
+    <Message Text="Copied $(TargetFileName) to $(ResonitePath)rml_mods" Importance="high" />
+  </Target>
+
+</Project>
