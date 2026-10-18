@@ -46,7 +46,9 @@ public class AutoResoLinkMod : ResoniteMod {
 		config = GetConfiguration();
 		// Writes the defaults to rml_config so that they can be found and edited.
 		config?.Save(true);
-		new Harmony("com.robertbaruch.AutoResoLink").PatchAll();
+		// The Resonite Mod Manifest requires the Harmony ID to equal the mod's
+		// manifest ID.
+		new Harmony("XekriRedmane.AutoResoLink").PatchAll();
 		Engine.Current.RunPostInit(SessionFile.Start);
 	}
 }
