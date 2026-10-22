@@ -53,7 +53,7 @@ internal static class LinkPorts {
 	//   already running in the world, the world is not hosted here, or the world's
 	//   permissions do not allow ResoniteLink.
 	public static bool StartOnAvailablePort(World world, int? preferred) {
-		int first = AutoResoLinkMod.StartingPort;
+		int first = AutoResoLinkMod.StartingPortKey.Value;
 		for (int attempt = 0; attempt < MaxStartAttempts; attempt++) {
 			int? port = null;
 			if (attempt == 0 && preferred.HasValue && IsAvailable(preferred.Value)) {

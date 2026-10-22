@@ -88,9 +88,10 @@ internal static class NewWorldDialogPatches {
 		ui.Style.PreferredHeight = 32f;
 
 		ui.HorizontalLayout(4f);
-		controls.Enable = ui.Checkbox("World.Actions.EnableResoniteLink".AsLocaleKey(), state: AutoResoLinkMod.AutoEnable);
+		controls.Enable = ui.Checkbox("World.Actions.EnableResoniteLink".AsLocaleKey(), state: AutoResoLinkMod.AutoEnableKey.Value);
 		ui.Text("NewWorld.Port".AsLocaleKey());
-		controls.SuggestedPort = LinkPorts.FindAvailable(AutoResoLinkMod.StartingPort) ?? AutoResoLinkMod.StartingPort;
+		int startingPort = AutoResoLinkMod.StartingPortKey.Value;
+		controls.SuggestedPort = LinkPorts.FindAvailable(startingPort) ?? startingPort;
 		controls.Port = ui.TextField(controls.SuggestedPort.ToString());
 		ui.NestOut();
 
